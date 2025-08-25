@@ -19,11 +19,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int SpawnCount = 50;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInterface> DecalMat;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<TSoftClassPtr<AActor>>  ClassesToSpawn;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	void SpawnItAll();
+	void SpawnAllDecals();
 //
 	TArray<AActor*>  AllSpawns;
 public:	
