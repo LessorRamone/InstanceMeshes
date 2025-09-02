@@ -4,14 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Misc/CoreMisc.h"
 #include "InstanceMeshActor.generated.h"
+
+DECLARE_STATS_GROUP(TEXT("TMM"), STATGROUP_TMM, STATCAT_Advanced)
+
+DECLARE_CYCLE_STAT(TEXT("Anim Trace Perf"), STAT_AnimTrace, STATGROUP_TMM)
 
 UCLASS(Blueprintable, BlueprintType)
 class THIRDPERSONFIVEFIVE_API AInstanceMeshActor : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AInstanceMeshActor();
 
@@ -27,13 +32,27 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool Rotate = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool Grow = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInterface* DecalMat = nullptr;;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool Spheres = true;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+	void SpawnTheDecals();
+
+protected:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	static TArray<FTransform> RandomTransformsOnSphere(int Count, float Radius);
+	TArray<FTransform> RandomTransformsForTraces(int Count, float InnerRadius, float OuterRadius);
+	TArray<float> TargetZScale;
+	TArray<FTransform> InstanceTransforms;
+	TArray<FVector> Directions;
 
 };
+

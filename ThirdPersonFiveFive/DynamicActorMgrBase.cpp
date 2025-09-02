@@ -6,6 +6,7 @@
 #include "MassEntitySubsystem.h"
 #include "MassCommonFragments.h"
 #include "DecalFragments.h"
+#include "Components/DecalComponent.h"
 
 
 // Sets default values for this component's properties
